@@ -27,6 +27,30 @@
     mode: 0644
     validate: haproxy -f %s -c -q
   notify: restart haproxy
+  when: haproxy_external_config_file is undefined
+
+- block:
+  - name: Set systemd environment file for haproxy external config
+    template:
+      src: 'haproxy_env.j2'
+      dest: /etc/sysconfig/haproxy
+      mode: 0644
+    notify: restart haproxy
+
+  - name: Make sure external config file path exists
+    file:
+      path: "{{ haproxy_external_config_file | dirname }}"
+      state: directory
+
+  - name: touch a file, but do not change access time, making this task idempotent
+    file:
+      path: "{{ haproxy_external_config_file }}"
+      state: touch
+      mode: u+rw,g-rw,o-rw
+      modification_time: preserve
+      access_time: preserve
+
+  when: haproxy_external_config_file is defined
 
 - name: Ensure HAProxy is started and enabled on boot.
   service: name=haproxy state=started enabled=yes

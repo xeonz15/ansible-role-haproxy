@@ -32,3 +32,8 @@ haproxy_client_timeout: 50000
 haproxy_server_timeout: 50000
 
 haproxy_template: "haproxy.cfg.j2"
+
+# By default using built-in config (/etc/haproxy/...)
+# If defined then configure systemd haproxy environment to use externally managed config file:
+# haproxy_external_config_file:
+
