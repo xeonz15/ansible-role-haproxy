@@ -1,5 +1,7 @@
 # Ansible Role: HAProxy
 
+This fork allows use of custom config file.
+
 [![CI](https://github.com/geerlingguy/ansible-role-haproxy/actions/workflows/ci.yml/badge.svg)](https://github.com/geerlingguy/ansible-role-haproxy/actions/workflows/ci.yml)
 
 Installs HAProxy on RedHat/CentOS and Debian/Ubuntu Linux servers.
