@@ -41,12 +41,14 @@
     file:
       path: "{{ haproxy_external_config_file | dirname }}"
       state: directory
+      owner: "{{ haproxy_external_config_file_owner | default('root') }}"
 
   - name: touch a file, but do not change access time, making this task idempotent
     file:
       path: "{{ haproxy_external_config_file }}"
       state: touch
       #mode: u+rw,g-rw,o-rw
+      owner: "{{ haproxy_external_config_file_owner | default('root') }}"
       modification_time: preserve
       access_time: preserve
 
